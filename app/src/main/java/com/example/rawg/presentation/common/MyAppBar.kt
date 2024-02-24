@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 fun MyAppBar(){
    TopAppBar(backgroundColor = Color(0xFF001D31),
       title ={
-         OutlinedText("DAWG")
+         OutlinedText("RAWG")
       }
    )
 }

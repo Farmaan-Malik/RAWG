@@ -1,4 +1,4 @@
-package com.example.rawg.presentation.GamesListScreen.components
+package com.example.rawg.presentation.common
 
 
 import androidx.compose.foundation.Image
@@ -48,17 +48,4 @@ fun LoadingScreen (modifier: Modifier = Modifier, isLoading:Boolean) {
     )
 }
 
-
-@Composable
-fun GameScreen(){}
-
-
-
-//Image(
-//painter = rememberAsyncImagePainter(category.strCategoryThumb),
-//contentDescription = null,
-//modifier = Modifier
-//.fillMaxSize()
-//.aspectRatio(1f)
-//)
 
