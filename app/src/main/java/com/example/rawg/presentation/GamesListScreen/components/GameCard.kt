@@ -27,6 +27,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
@@ -55,48 +57,62 @@ fun GameCard(
         .fillMaxSize()
         .padding(16.dp)
         .wrapContentSize(Alignment.BottomCenter)
+        .clickable { navigate() }
     ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 16.dp)
-            .height(200.dp)
-            .fillMaxHeight(),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Image(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
+//                .padding(top = 16.dp)
+                .height(200.dp)
+                .fillMaxHeight(),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Image(
+                modifier = Modifier
+                    .fillMaxSize()
+//                    .blur(3.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
 //                .border(width = 5.dp, color = Color.Blue)
-                .aspectRatio(1.5f),
-            painter = rememberAsyncImagePainter(background_image),
-            contentDescription = "${name} Image",
-            contentScale = ContentScale.Crop
-        )
-        Column {
-            Text(text = name, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-            Text(text = released)
-            Row() {
-                for (x in 1..rating.toInt()) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = "",
-                        Modifier
-                            .shadow(elevation = 100.dp)
-//                            .padding(top = 50.dp)
-                            .background(
-                                brush = Brush.radialGradient(
-                                    colors = listOf(
-                                        Color.Black,
-                                        Color.Transparent
-                                    )
-                                )
+                    .aspectRatio(1.5f),
+                painter = rememberAsyncImagePainter(background_image),
+                contentDescription = "${name} Image",
+                contentScale = ContentScale.FillHeight
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(0.5f)
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            listOf(
+                                Color.White,
+                                Color.Transparent
                             )
+                        )
+                    ),
+                contentAlignment = Alignment.CenterStart
+            ) {
 
+                Column() {
+                    Text(
+                        text = name,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 25.sp,
+                        color = Color.DarkGray
                     )
+                    Text(text = released, color = Color.DarkGray)
+                    Row() {
+                        for (x in 1..rating.toInt()) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = "",
+                                Modifier
+                                    .shadow(elevation = 100.dp),
+                                tint = Color(0xFFFFD700)
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
 }
 }

@@ -51,8 +51,6 @@ fun GameScreen(
                               rating = game.rating,
                               released = game.released,
                               background_image = game.background_image,
-//                              dominant_color = game.dominant_color
-//                         navController= navController
                               ){
                               Log.e("LMAO1",game.name)
                               navController.navigate("GameDetailScreen/${game.id}")
