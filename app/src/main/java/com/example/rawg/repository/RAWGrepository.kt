@@ -3,9 +3,9 @@ package com.example.rawg.repository
 
 
 import android.util.Log
+
 import com.example.rawg.data.remote.RAWGApi
 import com.example.rawg.data.remote.responses.ApiResponse
-import com.example.rawg.data.remote.responses.Result
 import com.example.rawg.data.remote.responses.gameDetailsResponse.GameDetailsResponse
 import com.example.rawg.utils.Resource
 
@@ -13,9 +13,9 @@ import com.example.rawg.utils.Resource
 class RAWGrepository (
     private val Api:RAWGApi
 ){
-    suspend fun getGames(): Resource<ApiResponse> {
+    suspend fun getGames(page:Int): Resource<ApiResponse> {
         val response = try {
-            Api.getGames()
+            Api.getGames(page = page)
         }catch (e: Exception){
             return Resource.Error(message = e.localizedMessage ?: "an error has occurred in Repository")
         }

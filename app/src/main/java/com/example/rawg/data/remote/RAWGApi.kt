@@ -13,8 +13,8 @@ interface RAWGApi{
 
     @GET("games")
     suspend fun getGames(
-        @Query("key") key:String = BuildConfig.Api_Key
-    ): ApiResponse
+        @Query("key") key:String= BuildConfig.Api_Key,
+        @Query("page") page:Int): ApiResponse
 
     @GET("games/{id}")
     suspend fun getGameDetails(

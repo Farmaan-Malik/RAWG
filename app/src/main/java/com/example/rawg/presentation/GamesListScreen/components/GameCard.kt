@@ -49,8 +49,6 @@ fun GameCard(
     rating:Double,
     released:String,
     background_image:String,
-//    dominant_color: String
-//    navController: NavHostController,
    navigate: ()-> Unit
 ) {
     Card(modifier = Modifier
@@ -70,8 +68,6 @@ fun GameCard(
             Image(
                 modifier = Modifier
                     .fillMaxSize()
-//                    .blur(3.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
-//                .border(width = 5.dp, color = Color.Blue)
                     .aspectRatio(1.5f),
                 painter = rememberAsyncImagePainter(background_image),
                 contentDescription = "${name} Image",

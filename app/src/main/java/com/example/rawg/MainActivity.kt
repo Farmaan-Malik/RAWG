@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                                     type= NavType.IntType
                                 }
                             )){
-                            GameDetailScreen(id = it.arguments?.getInt("id")?: 0)
+                            GameDetailScreen(id = it.arguments?.getInt("id")?: 0, navController = navController)
                         }
 
                 }
