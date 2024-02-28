@@ -45,7 +45,7 @@ import coil.compose.rememberAsyncImagePainter
 @Composable
 fun GameCard(
     name:String,
-    id:Int,
+//    id:Int,
     rating:Double,
     released:String,
     background_image:String,
