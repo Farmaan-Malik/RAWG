@@ -1,38 +1,44 @@
 package com.example.rawg.presentation.common
 
 
-import androidx.compose.foundation.layout.Row
+
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.Text
-
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
-
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextOverflow
-
-
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
+import androidx.navigation.NavHostController
 
 @Composable
-fun MyAppBar(){
-   TopAppBar(backgroundColor = Color(0xFF001D31),
+fun MyAppBar(navHostController: NavHostController){
+   TopAppBar(backgroundColor =Color(0xFF311F5A),
       title ={
-         OutlinedText("RAWG")
+         OutlinedText("GamePortal", 25f,x = null,y = null)
+
+      },
+      navigationIcon = {
+         if (navHostController.previousBackStackEntry != null){
+            IconButton(onClick = {navHostController.popBackStack()}) {
+              Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Go back", tint = Color.White)
+            }
+         }else{
+           Box(contentAlignment = Alignment.Center) {
+               Icon(
+                  imageVector = Icons.Default.Home,
+                  contentDescription = null,
+                  tint = Color.White,
+                  modifier = Modifier.padding(start = 16.dp)
+               )
+            }
+         }
       }
    )
 }

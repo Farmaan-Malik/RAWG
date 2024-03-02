@@ -6,6 +6,7 @@ import android.util.Log
 
 import com.example.rawg.data.remote.RAWGApi
 import com.example.rawg.data.remote.responses.ApiResponse
+import com.example.rawg.data.remote.responses.creators.CreatorResult
 import com.example.rawg.data.remote.responses.gameDetailsResponse.GameDetailsResponse
 import com.example.rawg.utils.Resource
 
@@ -31,6 +32,16 @@ class RAWGrepository (
             return Resource.Error(message = e.localizedMessage ?: "an error has occurred in Repository")
         }
         Log.e("RepositoryNamesssss", response.name)
+        return Resource.Success(response)
+    }
+
+    suspend fun getCreators(): Resource<CreatorResult> {
+        val response = try {
+            Api.getCreators()
+        }catch (e: Exception){
+            return Resource.Error(message = e.localizedMessage ?: "an error has occurred in Repository")
+        }
+        Log.e("RepositoryCreators", response.results.toString())
         return Resource.Success(response)
     }
 }

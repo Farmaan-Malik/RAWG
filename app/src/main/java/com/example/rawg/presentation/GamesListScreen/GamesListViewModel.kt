@@ -14,8 +14,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class GamesListViewModel(
-    private val repository:RAWGrepository
-): ViewModel() {
+    private val repository: RAWGrepository
+) : ViewModel() {
     private var _curPage = mutableStateOf(1)
     var curPage = _curPage.value
     private var _state = mutableStateOf<List<Result>>(listOf())
@@ -51,24 +51,23 @@ class GamesListViewModel(
 
     fun loadNextPage() {
         if (!_isLoading.value) {
-            val nextPage = _curPage.value+1
+            val nextPage = _curPage.value + 1
             viewModelScope.launch {
                 _isLoading.value = true
                 val response = repository.getGames(nextPage)
                 Log.e("Trath", "${nextPage}")
-                if (response is Resource.Success){
+                if (response is Resource.Success) {
                     val newData = response.data?.results!!
                     _state.value += newData
-                    Log.e("ViewModelState" , "${_state.value}")
+                    Log.e("ViewModelState", "${_state.value}")
                     _curPage.value = nextPage
 //                    _isLoading.value= false
-                }
-                else if (response is Resource.Error){
-                    _errorMessage.value= response.message.toString()
+                } else if (response is Resource.Error) {
+                    _errorMessage.value = response.message.toString()
                     Log.e("ViewModelFail", "${_errorMessage.value}")
 //                    _isLoading.value= false
                 }
-                _isLoading.value= false
+                _isLoading.value = false
 
             }
         }

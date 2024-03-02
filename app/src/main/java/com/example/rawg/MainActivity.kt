@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.rawg.presentation.GamesListScreen.GameScreen
+import com.example.rawg.presentation.creatorScreen.CreatorScreen
 import com.example.rawg.presentation.gameDetailScreen.GameDetailScreen
 import com.example.rawg.presentation.ui.theme.RAWGTheme
 
@@ -42,6 +43,9 @@ class MainActivity : ComponentActivity() {
                                 }
                             )){
                             GameDetailScreen(id = it.arguments?.getInt("id")?: 0, navController = navController)
+                        }
+                        composable("CreatorScreen"){
+                            CreatorScreen(navHostController = navController)
                         }
 
                 }

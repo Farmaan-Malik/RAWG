@@ -4,6 +4,7 @@ import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -19,12 +20,13 @@ import kotlin.io.path.fileVisitor
 
 
 @Composable
-fun OutlinedText(text:String) {
+fun OutlinedText(text:String, fontSize: Float, x:Float?,y:Float?
+) {
     Text(
         text = text,
         style = LocalTextStyle.current.merge(
             TextStyle(
-                fontSize = 30.sp,
+                fontSize = fontSize.sp,
                 letterSpacing = 12.sp
                 ,brush = Brush.horizontalGradient(
                     listOf(
@@ -34,7 +36,7 @@ fun OutlinedText(text:String) {
                         Color(0xFFFF86C9)
                     )
                 ),
-                shadow = Shadow(color = Color.Black, offset = Offset(15f, 15f),
+                shadow = Shadow(color = Color.Black, offset = Offset(x?:15f, y?:15f),
                     blurRadius = 12f),
 
                 drawStyle =
