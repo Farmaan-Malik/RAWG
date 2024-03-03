@@ -67,13 +67,13 @@ fun GameDetailScreen(
     viewModel.getGameDetails(id)
     if (isLoading) {
         Box(modifier = Modifier.fillMaxSize()) {
-            LoadingMain(loadingText = "Fetching Game Details", fontSize = 20f,0f,120f)
+            LoadingMain(loadingText = "Fetching Game Details", fontSize = 20f, 0f, 120f)
         }
     } else {
 
         BottomSheetScaffold(
             scaffoldState = scaffoldState,
-            topBar = { MyAppBar(navController) },
+            topBar = { MyAppBar(navController, "Game Details", null) },
             sheetPeekHeight = 270.dp,
             sheetContainerColor = Color(0xFF7360DF),
             sheetShape = AbsoluteRoundedCornerShape(15),
@@ -82,14 +82,20 @@ fun GameDetailScreen(
                     Column(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.clip(
-                            RoundedCornerShape(15)
-                        ).background(brush = Brush.verticalGradient(listOf(
-                            Color(0xFF7360DF),
+                        modifier = Modifier
+                            .clip(
+                                RoundedCornerShape(15)
+                            )
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    listOf(
+                                        Color(0xFF7360DF),
 //                            Color.White,
-                            Color(0xFFE5CFF7),
-                            Color(0xFFC499F3)
-                        )))
+                                        Color(0xFFE5CFF7),
+                                        Color(0xFFC499F3)
+                                    )
+                                )
+                            )
                     ) {
 
                         Text(
@@ -140,6 +146,7 @@ fun GameDetailScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
+                        .clip(RoundedCornerShape(15))
                         .fillMaxHeight(.35f),
                     contentScale = ContentScale.FillBounds
                 )
@@ -230,8 +237,7 @@ fun GameDetailScreen(
 
                                     .padding(8.dp)
 //                                    .border(.5.dp,Color.Gray, RoundedCornerShape(30))
-                                    .padding(5.dp)
-                                ,
+                                    .padding(5.dp),
                                 fontSize = 16.sp,
                                 color = Color.Black
                             )

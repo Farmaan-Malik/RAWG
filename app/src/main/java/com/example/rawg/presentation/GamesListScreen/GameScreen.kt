@@ -47,11 +47,10 @@ fun GameScreen(
     val isLoading by remember { ViewModel.isLoading }
     val listState = rememberLazyListState()
 
-
-    Scaffold(topBar = { MyAppBar(navController) }, modifier = Modifier.fillMaxSize(),
+    Scaffold(topBar = { MyAppBar(navController, "G▲meZ●ne ", null) }, modifier = Modifier.fillMaxSize(),
         bottomBar = {
             FloatingBar(
-                navController = navController
+                navController = navController, null
             )
         }
 
@@ -75,8 +74,9 @@ fun GameScreen(
                             )
                         )
                 ) {
-                    if(listState.firstVisibleItemIndex==0 ){
-                        Carousel(viewModel = ViewModel) }
+                    if (listState.firstVisibleItemIndex == 0) {
+                        Carousel(viewModel = ViewModel, navHostController = navController)
+                    }
                     LazyColumn(
                         state = listState,
                         modifier = Modifier

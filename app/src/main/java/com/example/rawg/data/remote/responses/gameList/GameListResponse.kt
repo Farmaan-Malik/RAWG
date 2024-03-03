@@ -1,6 +1,6 @@
-package com.example.rawg.data.remote.responses
+package com.example.rawg.data.remote.responses.gameList
 
-data class ApiResponse(
+data class GameListResponse(
     val count: Int,
     val description: String,
     val filters: Filters,

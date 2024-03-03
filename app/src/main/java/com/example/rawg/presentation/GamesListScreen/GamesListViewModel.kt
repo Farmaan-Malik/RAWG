@@ -2,15 +2,12 @@ package com.example.rawg.presentation.GamesListScreen
 
 import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rawg.BuildConfig
-import com.example.rawg.data.remote.responses.Result
+import com.example.rawg.data.remote.responses.gameList.Result
 import com.example.rawg.repository.RAWGrepository
 import com.example.rawg.utils.Resource
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class GamesListViewModel(
@@ -25,8 +22,14 @@ class GamesListViewModel(
     private var _isLoading = mutableStateOf(false)
     var isLoading: State<Boolean> = _isLoading
 
+    private var _carouselState = mutableStateOf<List<Result>>(listOf())
+    var carouselState: State<List<Result>> = _carouselState
+
+
+
     init {
         getList()
+        getCarousel()
     }
 
     private fun getList() {
@@ -72,4 +75,24 @@ class GamesListViewModel(
             }
         }
     }
+
+    private fun getCarousel(){
+        viewModelScope.launch {
+            _isLoading.value = true
+            Log.e("Heloo", repository.getGames(4).data?.results.toString())
+            val response = repository.getGames(4)
+            Log.e("Hiiiii", response.toString())
+
+            if (response is Resource.Success && !response.data?.results.isNullOrEmpty()) {
+                _carouselState.value = response.data?.results!!
+                _isLoading.value = false
+
+
+            } else if (response is Resource.Error) {
+                _errorMessage.value = response.message.toString()
+                _isLoading.value = false
+            }
+        }
+    }
+
 }

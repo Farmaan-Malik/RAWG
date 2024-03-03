@@ -1,4 +1,4 @@
-package com.example.rawg.data.remote.responses
+package com.example.rawg.data.remote.responses.gameList
 
 data class Tag(
     val games_count: Int,

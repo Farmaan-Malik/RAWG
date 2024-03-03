@@ -4,6 +4,7 @@ import android.view.Gravity.FILL
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,6 +37,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -45,42 +48,53 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Carousel(viewModel: GamesListViewModel = koinViewModel()) {
-    val GameList by remember { viewModel.state }
+fun Carousel(
+    viewModel: GamesListViewModel = koinViewModel(),
+    navHostController: NavHostController
+) {
+    val GameList by remember { viewModel.carouselState}
 
 
     val pagerState = rememberPagerState(
-        initialPage = 0,
-        initialPageOffsetFraction = 0f
+        initialPage = 1, initialPageOffsetFraction = 0f
     ) {
-      GameList.size
+        GameList.size
     }
 //    Text(text = "Featured Games")
-    Box(modifier = Modifier.height(300.dp)) {
+    Box(modifier = Modifier
+        .height(300.dp)){
         HorizontalPager(state = pagerState, pageSpacing = -210.dp) { index ->
             val pageOffset = (pagerState.currentPage - index) + pagerState.currentPageOffsetFraction
             val imageSize by animateFloatAsState(
-                targetValue = if (pageOffset == 0.0f) 1f else .5f,
-                animationSpec = tween(300), label = ""
+                targetValue = if (pageOffset == 0.0f) 1f else .7f,
+                animationSpec = tween(300),
+                label = ""
             )
-           
+            val imagePosition by animateFloatAsState(targetValue = if (pageOffset != 0.0f) -200f else 1f)
+            val imageIndex by animateFloatAsState(targetValue = if (pageOffset == 0.00f) 1f else 0f)
+
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth(.7f)
                     .fillMaxHeight(1f)
+                    .zIndex(imageIndex)
+                    .clickable { navHostController.navigate("GameDetailScreen/${GameList[index].id}") }
 //                    .fillMaxSize(.8f)
                     .padding(16.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .graphicsLayer {
                         scaleX = imageSize
                         scaleY = imageSize
+                        translationX = imagePosition
                     },
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(GameList[index].background_image)
-                    .build(),
+                    .data(GameList[index].background_image).build(),
                 contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
+                contentScale = ContentScale.Crop,
+
+
+                )
+
         }
     }
 }

@@ -15,9 +15,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.rawg.data.remote.responses.creators.creatorDetails.CreatorDetail
+import com.example.rawg.data.remote.responses.stores.Game
 import com.example.rawg.presentation.GamesListScreen.GameScreen
+import com.example.rawg.presentation.creatorDetailScreen.CreatorDetailScreen
 import com.example.rawg.presentation.creatorScreen.CreatorScreen
 import com.example.rawg.presentation.gameDetailScreen.GameDetailScreen
+import com.example.rawg.presentation.stores.StoreScreen
 import com.example.rawg.presentation.ui.theme.RAWGTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,23 +35,40 @@ class MainActivity : ComponentActivity() {
 //                    modifier = Modifier.fillMaxSize(),
 //                    color = MaterialTheme.colorScheme.background
 //                ) {
-                    val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "GameScreen"){
-                        composable("GameScreen"){
-                            GameScreen(navController= navController)
-                        }
-                        composable("GameDetailScreen/{id}",
-                            arguments = listOf(
-                                navArgument("id"){
-                                    type= NavType.IntType
-                                }
-                            )){
-                            GameDetailScreen(id = it.arguments?.getInt("id")?: 0, navController = navController)
-                        }
-                        composable("CreatorScreen"){
-                            CreatorScreen(navHostController = navController)
-                        }
-
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "GameScreen") {
+                    composable("GameScreen") {
+                        GameScreen(navController = navController)
+                    }
+                    composable("GameDetailScreen/{id}",
+                        arguments = listOf(
+                            navArgument("id") {
+                                type = NavType.IntType
+                            }
+                        )) {
+                        GameDetailScreen(
+                            id = it.arguments?.getInt("id") ?: 0,
+                            navController = navController
+                        )
+                    }
+                    composable("CreatorScreen") {
+                        CreatorScreen(navHostController = navController)
+                    }
+                    composable("CreatorDetail/{id}",
+                        arguments = listOf(
+                            navArgument("id") {
+                                type = NavType.IntType
+                            }
+                        )
+                    ) {
+                        CreatorDetailScreen(
+                            id = it.arguments?.getInt("id") ?: 0,
+                            navHostController = navController
+                        )
+                    }
+                    composable("StoreScreen") {
+                        StoreScreen(navHostController = navController)
+                    }
                 }
             }
         }

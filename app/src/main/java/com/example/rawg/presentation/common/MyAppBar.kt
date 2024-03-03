@@ -1,7 +1,6 @@
 package com.example.rawg.presentation.common
 
 
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -18,28 +17,34 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun MyAppBar(navHostController: NavHostController){
-   TopAppBar(backgroundColor =Color(0xFF311F5A),
-      title ={
-         OutlinedText("GamePortal", 25f,x = null,y = null)
+fun MyAppBar(navHostController: NavHostController, title: String, color : Color?) {
+    TopAppBar(backgroundColor = color ?: Color(0xFF20143C),
+        title = {
+            OutlinedText(
+                title, 25f, x = 0f, y = 0f
+            )
 
-      },
-      navigationIcon = {
-         if (navHostController.previousBackStackEntry != null){
-            IconButton(onClick = {navHostController.popBackStack()}) {
-              Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Go back", tint = Color.White)
+        },
+        navigationIcon = {
+            if (navHostController.previousBackStackEntry != null) {
+                IconButton(onClick = { navHostController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Go back",
+                        tint = Color.White
+                    )
+                }
+            } else {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = Icons.Default.Home,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
             }
-         }else{
-           Box(contentAlignment = Alignment.Center) {
-               Icon(
-                  imageVector = Icons.Default.Home,
-                  contentDescription = null,
-                  tint = Color.White,
-                  modifier = Modifier.padding(start = 16.dp)
-               )
-            }
-         }
-      }
-   )
+        }
+    )
 }
 

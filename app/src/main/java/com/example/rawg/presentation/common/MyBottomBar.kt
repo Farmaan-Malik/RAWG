@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -29,30 +30,38 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun FloatingBar(navController : NavHostController){
+fun FloatingBar(navController: NavHostController, color: Color?) {
     BottomAppBar(
         modifier = Modifier
             .offset(x = 70.dp, y = -8.dp)
             .clip(RoundedCornerShape(80))
             .fillMaxWidth(.7f)
             .fillMaxHeight(.07f),
-        containerColor = Color(0xFF392467)
+        containerColor = color ?: Color(0xFF392467)
     ) {
-        NavigationBarItem(selected = navController.currentDestination?.route == "CreatorScreen", onClick = { navController.navigate("CreatorScreen") }, icon = {
-            Icon(imageVector = Icons.Default.Face, contentDescription = null)
-        }, colors = NavigationBarItemDefaults.colors(
-        )
+        NavigationBarItem(selected = navController.currentDestination?.route == "CreatorScreen",
+            onClick = { navController.navigate("CreatorScreen") },
+            icon = {
+                Icon(imageVector = Icons.Default.Face, contentDescription = null)
+            },
+            colors = NavigationBarItemDefaults.colors(unselectedIconColor = Color.White)
         )
         NavigationBarItem(
             selected = navController.currentDestination?.route == "GameScreen",
             onClick = { navController.navigate("GameScreen") },
             icon = {
                 Icon(imageVector = Icons.Default.Home, contentDescription = null)
-            })
-        NavigationBarItem(selected = false, onClick = { /*TODO*/ }, icon = {
-            Icon(imageVector = Icons.Default.Face, contentDescription = "Creators")
-        })
+            }, colors = NavigationBarItemDefaults.colors(unselectedIconColor = Color.White)
+        )
+        NavigationBarItem(
+            selected = navController.currentDestination?.route == "StoreScreen",
+            onClick = { navController.navigate("StoreScreen") },
+            icon = {
+                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Stores")
+            },
+            colors = NavigationBarItemDefaults.colors(unselectedIconColor = Color.White)
+        )
 
     }
-    }
+}
 
