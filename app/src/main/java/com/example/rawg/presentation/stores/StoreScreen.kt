@@ -87,11 +87,7 @@ fun StoreScreen(
                             StoreCard(
                                 games_count = Store.games_count,
                                 name = Store.name,
-                            ) {
-                                storeGames = Store.games
-                                goToGames = true
-
-                            }
+                            )
                         }
 
                     }

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rawg.data.remote.responses.creators.creatorDetails.CreatorDetail
 import com.example.rawg.repository.RAWGrepository
 import com.example.rawg.utils.Resource
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CreatorDetailViewModel(
@@ -25,19 +26,16 @@ class CreatorDetailViewModel(
 
     fun getCreatorDetails(id: Int){
         viewModelScope.launch {
-            _isLoading.value = true
+//            _isLoading.value = true
             val response = repository.getCreatorDetails(id)
             if(response is Resource.Success){
                 creatorDetails = response.data!!
+                delay(3000)
                 Log.e("CreatorDetailData", "${response.data}")
                 _isLoading.value = false
             }
             else{
-
-
-
-
-
+//                _isLoading.value= false
                 Log.e("CreatorDetail", "${response.message}")
             }
 

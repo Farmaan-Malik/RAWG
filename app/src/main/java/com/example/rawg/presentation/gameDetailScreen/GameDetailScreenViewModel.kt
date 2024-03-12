@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class GameDetailScreenViewModel(
     private val repository:RAWGrepository): ViewModel() {
     lateinit var _gameDetails : GameDetailsResponse
-    private val _isLoading = mutableStateOf(true)
+    private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
     private val _id = mutableStateOf(0)
 

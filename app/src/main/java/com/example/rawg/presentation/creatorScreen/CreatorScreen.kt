@@ -79,7 +79,8 @@ fun CreatorScreen(
                             name = Creator.name,
                             positions = Creator.positions,
                             slug = Creator.slug
-                        ) {
+                        )
+                        {
                             Log.e("CreatorID", "${Creator.name}")
                             navHostController.navigate("CreatorDetail/${Creator.id}")
                         }

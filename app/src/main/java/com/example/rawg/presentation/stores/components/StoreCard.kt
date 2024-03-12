@@ -28,24 +28,19 @@ import com.example.rawg.presentation.ui.theme.oswald
 @Composable
 fun StoreCard(
     games_count: Int,
-    name: String,
-    navigate: () -> Unit
+    name: String
 ) {
     Card(
         modifier = Modifier
             .padding(16.dp)
-//            .fillMaxSize()
             .height(100.dp)
             .clip(RoundedCornerShape(20))
             .wrapContentSize(Alignment.BottomCenter)
-            .clickable { navigate() }
     ) {
 
         Column(
             modifier = Modifier
-//                .fillMaxHeight()
                 .fillMaxSize(),
-//                .fillMaxWidth(1f),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
