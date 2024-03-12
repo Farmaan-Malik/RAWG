@@ -37,9 +37,9 @@ class RAWGrepository (
         return Resource.Success(response)
     }
 
-    suspend fun getCreators(): Resource<CreatorResult> {
+    suspend fun getCreators(page: Int): Resource<CreatorResult> {
         val response = try {
-            Api.getCreators()
+            Api.getCreators(page = page)
         }catch (e: Exception){
             return Resource.Error(message = e.localizedMessage ?: "an error has occurred in Repository")
         }

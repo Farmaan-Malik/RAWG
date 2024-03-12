@@ -25,7 +25,10 @@ interface RAWGApi{
 
     @GET("creators")
     suspend fun getCreators(
-        @Query("key") key:String= BuildConfig.Api_Key): CreatorResult
+        @Query("key") key:String= BuildConfig.Api_Key,
+        @Query("page") page:Int): CreatorResult
+
+
 
     @GET("creators/{id}")
     suspend fun getCreatorDetails(

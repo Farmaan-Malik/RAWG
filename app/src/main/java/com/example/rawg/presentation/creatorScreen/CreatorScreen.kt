@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +36,7 @@ fun CreatorScreen(
 
     val isLoading by remember { viewModel.isLoading }
     val Creatorlist by remember { viewModel.state }
+    val LazyState = rememberLazyGridState(0)
     Scaffold(topBar = { MyAppBar(navHostController, "Creators", Color(0xFF27374D)) },
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -51,7 +53,7 @@ fun CreatorScreen(
             }
 
             !isLoading -> {
-                LazyVerticalGrid(
+                LazyVerticalGrid(state = LazyState,
                     modifier = Modifier
                         .padding(top = paddingValues.calculateTopPadding())
                         .background(
@@ -83,6 +85,10 @@ fun CreatorScreen(
                         {
                             Log.e("CreatorID", "${Creator.name}")
                             navHostController.navigate("CreatorDetail/${Creator.id}")
+                        }
+                        val threshold = 1
+                        if (Creator == Creatorlist.getOrNull(Creatorlist.size - threshold)) {
+                            viewModel.loadNextPage()
                         }
                     }
 
