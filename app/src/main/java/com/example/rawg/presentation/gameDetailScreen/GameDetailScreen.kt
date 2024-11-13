@@ -64,8 +64,9 @@ fun GameDetailScreen(
     val isLoading by remember { viewModel.isLoading }
     val scaffoldState = rememberBottomSheetScaffoldState()
 
-    viewModel.getGameDetails(id)
+
     if (isLoading) {
+        viewModel.getGameDetails(id)
         Box(modifier = Modifier.fillMaxSize()) {
             LoadingMain(loadingText = "Fetching Game Details", fontSize = 20f, 0f, 120f)
         }

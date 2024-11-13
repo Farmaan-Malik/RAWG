@@ -14,26 +14,28 @@ import kotlinx.coroutines.launch
 class GameDetailScreenViewModel(
     private val repository:RAWGrepository): ViewModel() {
     lateinit var _gameDetails : GameDetailsResponse
-    private val _isLoading = mutableStateOf(false)
+    private val _isLoading = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
     private val _id = mutableStateOf(0)
 
     fun setId(id: Int){
         _id.value = id
-    getGameDetails(_id.value)}
+    getGameDetails(_id.value)
+    }
 
     fun getGameDetails(id: Int){
         viewModelScope.launch(){
+
             val response = repository.getGameDetails(id)
             if (response is Resource.Success){
                 _gameDetails= response.data!!
-                delay(3000)
+//                delay(3000)
                 _isLoading.value = false
             }else if (response is Resource.Error)
             {
                 Log.e("Details", response.message.toString())
 //                _errorMessage.value = response.message.toString()
-//                _isLoading.value = false
+                _isLoading.value = false
             }
         }
     }
